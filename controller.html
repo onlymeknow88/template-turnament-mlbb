@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB Draft Operator Controller</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS Tambahan khusus Halaman Controller Admin */
+        body.controller-body {
+            background-image: radial-gradient(circle at 50% 0%, rgba(15, 30, 70, 0.9) 0%, rgba(5, 10, 25, 1) 90%);
+            padding: 20px;
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+
+        .controller-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            gap: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .team-meta-editor {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .team-meta-editor h3 {
+            font-size: 14px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 4px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold);
+        }
+
+        .controller-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 15px;
+        }
+
+        .controller-header h1 {
+            font-size: 26px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .controller-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Active step banner in controller */
+        .step-banner {
+            background: var(--gold-glow);
+            border: 1px solid var(--gold);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .timer-ctrl-display {
+            font-size: 40px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body class="controller-body">
+
+    <div class="controller-header">
+        <h1>MLBB Draft Pick Operator Controller</h1>
+        <p>Gunakan halaman ini untuk memilih hero, mengedit nama tim/player, dan mengontrol timer. Halaman Overlay (index.html) akan sinkron otomatis.</p>
+    </div>
+
+    <div class="controller-layout">
+        
+        <!-- Kolom Kiri: Tim Biru Editor & State -->
+        <section class="draft-panel blue-side">
+            <h2 class="draft-panel-title">Blue Team Configuration</h2>
+            
+            <div class="team-meta-editor">
+                <h3>Blue Meta</h3>
+                <div class="form-group">
+                    <label>Team Name</label>
+                    <input type="text" class="form-control" id="blue-name-ctrl" value="BLUE TEAM">
+                </div>
+                <div class="form-group">
+                    <label>Coach Name</label>
+                    <input type="text" class="form-control" id="blue-coach-ctrl" value="GIEE Coach">
+                </div>
+                <div class="form-group">
+                    <label>Players (1 - 5)</label>
+                    <input type="text" class="form-control player-input-blue" data-index="0" value="Dont">
+                    <input type="text" class="form-control player-input-blue" data-index="1" value="Loveeely">
+                    <input type="text" class="form-control player-input-blue" data-index="2" value="Reaper">
+                    <input type="text" class="form-control player-input-blue" data-index="3" value="Yustinian">
+                    <input type="text" class="form-control player-input-blue" data-index="4" value="Maniak">
+                </div>
+            </div>
+
+            <h2 class="draft-panel-title">Blue Bans</h2>
+            <div class="ban-zone" id="blue-ban-zone">
+                <div class="ban-slot" data-slot="0"></div>
+                <div class="ban-slot" data-slot="1"></div>
+                <div class="ban-slot" data-slot="2"></div>
+                <div class="ban-slot" data-slot="3"></div>
+                <div class="ban-slot" data-slot="4"></div>
+            </div>
+
+            <h2 class="draft-panel-title">Blue Picks</h2>
+            <div class="pick-zone" id="blue-pick-zone">
+                <!-- 5 Slot Pick -->
+                <div class="pick-slot" data-slot="0">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 1</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="1">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 2</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="2">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 3</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="3">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 4</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="4">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 5</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+            </div>
+        </section>
+
+        <!-- Kolom Tengah: Hero Pool Selection & Controls -->
+        <section class="draft-panel pool-panel">
+            <div class="step-banner" id="step-banner-display">Waiting to Start</div>
+            <div class="timer-ctrl-display" id="timer-ctrl-display">30</div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
+                <button class="control-btn btn-start" id="btn-start-draft">▶ Start Draft</button>
+                <button class="control-btn" id="btn-pause-timer" disabled>⏸ Pause</button>
+                <button class="control-btn" id="btn-undo" disabled>↩ Undo</button>
+                <button class="control-btn btn-reset" id="btn-reset">🔄 Reset</button>
+            </div>
+
+            <div class="pool-controls">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" id="search-heroes" placeholder="Search hero name..." autocomplete="off">
+                </div>
+            </div>
+
+            <div class="role-filters" id="role-filters-container">
+                <button class="filter-btn active" data-role="all">All</button>
+                <button class="filter-btn" data-role="Tank">Tank</button>
+                <button class="filter-btn" data-role="Fighter">Fighter</button>
+                <button class="filter-btn" data-role="Assassin">Assassin</button>
+                <button class="filter-btn" data-role="Mage">Mage</button>
+                <button class="filter-btn" data-role="Marksman">Marksman</button>
+                <button class="filter-btn" data-role="Support">Support</button>
+            </div>
+
+            <!-- Hero Cards Grid Container -->
+            <div class="hero-grid" id="heroes-grid-container">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- Kolom Kanan: Tim Merah Editor & State -->
+        <section class="draft-panel red-side">
+            <h2 class="draft-panel-title">Red Team Configuration</h2>
+            
+            <div class="team-meta-editor">
+                <h3>Red Meta</h3>
+                <div class="form-group">
+                    <label>Team Name</label>
+                    <input type="text" class="form-control" id="red-name-ctrl" value="RED TEAM">
+                </div>
+                <div class="form-group">
+                    <label>Coach Name</label>
+                    <input type="text" class="form-control" id="red-coach-ctrl" value="BOOYO Coach">
+                </div>
+                <div class="form-group">
+                    <label>Players (1 - 5)</label>
+                    <input type="text" class="form-control player-input-red" data-index="0" value="Bankai">
+                    <input type="text" class="form-control player-input-red" data-index="1" value="Zetsu">
+                    <input type="text" class="form-control player-input-red" data-index="2" value="Mayki">
+                    <input type="text" class="form-control player-input-red" data-index="3" value="Shenlynn">
+                    <input type="text" class="form-control player-input-red" data-index="4" value="Rynxk">
+                </div>
+            </div>
+
+            <h2 class="draft-panel-title">Red Bans</h2>
+            <div class="ban-zone" id="red-ban-zone">
+                <div class="ban-slot" data-slot="0"></div>
+                <div class="ban-slot" data-slot="1"></div>
+                <div class="ban-slot" data-slot="2"></div>
+                <div class="ban-slot" data-slot="3"></div>
+                <div class="ban-slot" data-slot="4"></div>
+            </div>
+
+            <h2 class="draft-panel-title">Red Picks</h2>
+            <div class="pick-zone" id="red-pick-zone">
+                <!-- 5 Slot Pick -->
+                <div class="pick-slot" data-slot="0">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 1</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="1">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 2</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="2">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 3</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="3">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 4</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+                <div class="pick-slot" data-slot="4">
+                    <div class="hero-info">
+                        <span class="hero-name">Slot 5</span>
+                        <span class="role-badge">-</span>
+                    </div>
+                    <img class="hero-bg" src="" alt="">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/heroes.js"></script>
+    <script src="js/draft.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>

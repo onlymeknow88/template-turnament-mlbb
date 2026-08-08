@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB M6 Tournament Overlay</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="obs-mode"> <!-- M6 stream overlay page is OBS-mode by default -->
+
+    <!-- Header Overlay (Tournament Theme) -->
+    <header class="tournament-header">
+        <!-- Left Team Name -->
+        <div class="team-meta-header blue-meta-h">
+            <span class="team-abbreviation" id="blue-team-abbrev">INS</span>
+            <div class="team-dot blue-dot"></div>
+        </div>
+
+        <!-- Center Tournament Logo & Match Info (Hidden as requested, kept in DOM to prevent JS errors) -->
+        <div class="tournament-info-center">
+            <img class="logo-gold-m6" src="images/logo TAZ.png" alt="TAZ Logo" style="display: none;">
+            <div class="match-meta-text" style="display: none;">
+                <span class="match-stage">WILD CARD</span>
+                <span class="match-format">BEST OF 3 - GAME 1</span>
+            </div>
+            <div class="timer-m6-box" id="timer-box" style="display: none;">LAST 0:30</div>
+        </div>
+
+        <!-- Right Team Name -->
+        <div class="team-meta-header red-meta-h">
+            <div class="team-dot red-dot"></div>
+            <span class="team-abbreviation" id="red-team-abbrev">MGLZ</span>
+        </div>
+    </header>
+
+    <!-- Main Tournament Overlay Layout -->
+    <main class="tournament-layout">
+
+        <!-- Left Side: Blue Team (M6 Style Layout) -->
+        <section class="team-section-m6 blue-side-m6">
+            <!-- Upper Section: Coach & Bans -->
+            <div class="team-upper-row">
+                <div class="ban-row-m6" id="blue-ban-zone">
+                    <div class="ban-slot-m6" data-slot="0"></div>
+                    <div class="ban-slot-m6" data-slot="1"></div>
+                    <div class="ban-slot-m6" data-slot="2"></div>
+                    <div class="ban-slot-m6" data-slot="3"></div>
+                    <div class="ban-slot-m6" data-slot="4"></div>
+                </div>
+                <div class="coach-label-m6">
+                    <span id="blue-coach-name">Giee</span>
+                    <span class="coach-subtitle">COACH</span>
+                </div>
+            </div>
+
+            <!-- Lower Section: 5 Vertical Pick Cards Side-by-Side -->
+            <div class="pick-row-m6" id="blue-pick-zone">
+                <!-- 5 Vertical Cards -->
+                <div class="pick-card-m6" data-slot="0">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Dont</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="1">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Loveeely</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="2">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Reaper</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="3">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Yustinian</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="4">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Maniak</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- Spacer Tengah (Logo TAZ Tengah Layar) -->
+        <div class="tournament-spacer">
+            <div class="center-logo-container">
+                <img src="images/logo TAZ.png" alt="TAZ Logo" class="center-taz-logo">
+            </div>
+        </div>
+
+        <!-- Right Side: Red Team (M6 Style Layout) -->
+        <section class="team-section-m6 red-side-m6">
+            <!-- Upper Section: Coach & Bans -->
+            <div class="team-upper-row row-reverse">
+                <div class="ban-row-m6" id="red-ban-zone">
+                    <div class="ban-slot-m6" data-slot="0"></div>
+                    <div class="ban-slot-m6" data-slot="1"></div>
+                    <div class="ban-slot-m6" data-slot="2"></div>
+                    <div class="ban-slot-m6" data-slot="3"></div>
+                    <div class="ban-slot-m6" data-slot="4"></div>
+                </div>
+                <div class="coach-label-m6 coach-red">
+                    <span id="red-coach-name">Booyo</span>
+                    <span class="coach-subtitle">COACH</span>
+                </div>
+            </div>
+
+            <!-- Lower Section: 5 Vertical Pick Cards Side-by-Side -->
+            <div class="pick-row-m6" id="red-pick-zone">
+                <!-- 5 Vertical Cards -->
+                <div class="pick-card-m6" data-slot="0">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Bankai</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="1">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Zetsu</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="2">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Mayki</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="3">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Shenlynn</span>
+                    </div>
+                </div>
+                <div class="pick-card-m6" data-slot="4">
+                    <img class="hero-portrait-m6" src="" alt="">
+                    <span class="hero-name-m6">-</span>
+                    <div class="card-overlay-m6">
+                        <span class="player-name-m6">Rynxk</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+    </main>
+
+    <!-- App Scripts -->
+    <script src="js/heroes.js"></script>
+    <script src="js/draft.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+
+</html>

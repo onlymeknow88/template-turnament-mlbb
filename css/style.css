@@ -1,0 +1,885 @@
+:root {
+    /* Color Palette */
+    --bg-base: #040812;
+    --bg-panel: rgba(10, 20, 38, 0.82);
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --text-primary: #E2E8F0;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    
+    --gold: #C9A84C;
+    --gold-glow: rgba(201, 168, 76, 0.35);
+    
+    /* Tim Biru */
+    --blue-main: #00E5FF;
+    --blue-dark: rgba(0, 229, 255, 0.1);
+    --blue-glow: rgba(0, 229, 255, 0.35);
+    
+    /* Tim Merah */
+    --red-main: #FF3D71;
+    --red-dark: rgba(255, 61, 113, 0.1);
+    --red-glow: rgba(255, 61, 113, 0.35);
+}
+
+/* Global Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .gaming-font {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* --- OBS OVERLAY MODE (index.html) --- */
+body.obs-mode {
+    background: #00ff00 !important;
+    overflow: hidden;
+    height: 1080px;
+    width: 1920px;
+}
+
+/* Header Tournament (Split layout: solid sides to block MLBB bans, transparent middle for timer) */
+.tournament-header {
+    height: 110px;
+    background: linear-gradient(to right, 
+        rgba(4, 8, 18, 0.98) 0%, 
+        rgba(4, 8, 18, 0.98) 39%, 
+        transparent 39%, 
+        transparent 61%, 
+        rgba(4, 8, 18, 0.98) 61%, 
+        rgba(4, 8, 18, 0.98) 100%
+    );
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.team-meta-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 320px;
+}
+
+.blue-meta-h {
+    justify-content: flex-start;
+}
+
+.red-meta-h {
+    justify-content: flex-end;
+}
+
+.team-abbreviation {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.blue-meta-h .team-abbreviation {
+    color: var(--blue-main);
+    text-shadow: 0 0 10px var(--blue-glow);
+}
+
+.red-meta-h .team-abbreviation {
+    color: var(--red-main);
+    text-shadow: 0 0 10px var(--red-glow);
+}
+
+.team-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.blue-dot {
+    background-color: var(--blue-main);
+    color: var(--blue-main);
+}
+
+.red-dot {
+    background-color: var(--red-main);
+    color: var(--red-main);
+}
+
+/* Center Tournament Info & Logo */
+.tournament-info-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo-gold-m6 {
+    /* Logo Emblem M6 */
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    position: absolute;
+    top: -55px;
+    filter: drop-shadow(0 0 10px rgba(201, 168, 76, 0.5));
+}
+
+.match-meta-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.match-stage {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.match-format {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2px;
+}
+
+.timer-m6-box {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-subtle);
+    padding: 2px 14px;
+    border-radius: 4px;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
+.timer-m6-box.urgent {
+    color: var(--red-main);
+    border-color: var(--red-main);
+    box-shadow: 0 0 10px var(--red-glow);
+}
+
+/* Layout Turnamen M6 */
+.tournament-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 750px 1fr 750px;
+    height: calc(1080px - 110px);
+    padding: 40px 30px;
+}
+
+.team-section-m6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: transparent;
+}
+
+.blue-side-m6 {
+}
+
+.red-side-m6 {
+}
+
+.tournament-spacer {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.center-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Memosisikan logo di bawah sejajar kartu */
+    width: 100%;
+    height: 100%;
+    padding-bottom: 180px; /* Dinaikkan agar tidak terpotong di tepi layar */
+}
+
+.center-taz-logo {
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.6));
+    animation: taz-logo-float 4s ease-in-out infinite;
+}
+
+@keyframes taz-logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Upper Row Turnamen: Coach & Bans */
+.team-upper-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.team-upper-row.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.ban-row-m6 {
+    display: flex;
+    gap: 8px;
+}
+
+.ban-slot-m6 {
+    width: 44px;
+    height: 44px;
+    background: rgba(10, 20, 38, 0.85);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ban-slot-m6 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.6);
+}
+
+.ban-slot-m6::after {
+    content: "✕";
+    position: absolute;
+    color: #ff3b3b;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ban-slot-m6.filled::after {
+    opacity: 0.8;
+}
+
+.ban-slot-m6.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px var(--gold-glow);
+    animation: pulse-border-gold 1.5s infinite;
+}
+
+.blue-side-m6 .ban-slot-m6.active {
+    border-color: var(--blue-main);
+    box-shadow: 0 0 8px var(--blue-glow);
+    animation: pulse-border-blue 1.5s infinite;
+}
+
+.red-side-m6 .ban-slot-m6.active {
+    border-color: var(--red-main);
+    box-shadow: 0 0 8px var(--red-glow);
+    animation: pulse-border-red 1.5s infinite;
+}
+
+/* Coach Metadata */
+.coach-label-m6 {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.coach-label-m6.coach-red {
+    text-align: left;
+}
+
+.coach-label-m6 span:first-child {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFA726; /* Coach orange-gold text */
+    text-transform: uppercase;
+}
+
+.coach-label-m6 .coach-subtitle {
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* Vertical Pick Cards (MPL Style) */
+.pick-row-m6 {
+    display: flex;
+    gap: 12px;
+    height: 360px; /* Dikembalikan ke ukuran tinggi penuh MPL */
+}
+
+.pick-card-m6 {
+    flex: 1;
+    background: rgba(10, 20, 38, 0.85);
+    border: 2px solid var(--border-subtle);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Memosisikan konten nama player di bawah */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.hero-portrait-m6 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mengisi penuh kartu tanpa distorsi */
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Lencana Role Bergaya MPL di Pojok Kanan Atas Kartu */
+.role-badge-mpl {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #f3d060 0%, #c59f27 100%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #070e1b;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 2px;
+    z-index: 3;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+
+.pick-card-m6.filled {
+    animation: card-lock-bounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.pick-card-m6.filled .hero-portrait-m6 {
+    animation: hero-slide-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Efek Kilatan Cahaya Putih (Sweep Shine) */
+.pick-card-m6.filled::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent
+    );
+    transform: skewX(-25deg);
+    z-index: 4;
+    animation: card-shine 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+}
+
+.card-overlay-m6 {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 75%);
+    padding: 10px 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.player-name-m6 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Nama Hero Ditulis Vertikal di Sisi Kiri (MPL Style) */
+.hero-name-m6 {
+    position: absolute;
+    left: 8px;
+    top: 15px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg); /* Memutar agar terbaca dari bawah ke atas */
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    z-index: 3;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+/* KEYFRAMES ANIMASI TURNAMEN */
+@keyframes hero-slide-in {
+    0% {
+        transform: scale(1.18) translateY(20px);
+        filter: brightness(0.2) contrast(1.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        filter: brightness(1) contrast(1);
+        opacity: 0.85;
+    }
+}
+
+@keyframes card-lock-bounce {
+    0% {
+        transform: scale(0.96);
+    }
+    50% {
+        transform: scale(1.04);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes card-shine {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+.player-name-m6 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-name-m6 {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Active and glowing borders for drafting cards (MPL Style) */
+.blue-side-m6 .pick-card-m6.active {
+    border: 2.5px solid #00e5ff;
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.8), inset 0 0 15px rgba(0, 229, 255, 0.4);
+    animation: pulse-border-blue 1.4s ease-in-out infinite, active-pulse-bg-blue 2.5s ease-in-out infinite;
+    z-index: 5;
+}
+
+.red-side-m6 .pick-card-m6.active {
+    border: 2.5px solid #ff3d71;
+    box-shadow: 0 0 25px rgba(255, 61, 113, 0.8), inset 0 0 15px rgba(255, 61, 113, 0.4);
+    animation: pulse-border-red 1.4s ease-in-out infinite, active-pulse-bg-red 2.5s ease-in-out infinite;
+    z-index: 5;
+}
+
+
+/* --- ADMIN CONTROLLER UI (controller.html) --- */
+.draft-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.draft-panel-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+/* Ban Zone */
+.ban-zone {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.ban-slot {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ban-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.6);
+}
+
+.ban-slot::after {
+    content: "✕";
+    position: absolute;
+    color: #ff3b3b;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ban-slot.filled::after {
+    opacity: 0.8;
+}
+
+.ban-slot.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px var(--gold-glow);
+    animation: pulse-border-gold 1.5s infinite;
+}
+
+.blue-side .ban-slot.active {
+    border-color: var(--blue-main);
+    box-shadow: 0 0 8px var(--blue-glow);
+    animation: pulse-border-blue 1.5s infinite;
+}
+
+.red-side .ban-slot.active {
+    border-color: var(--red-main);
+    box-shadow: 0 0 8px var(--red-glow);
+    animation: pulse-border-red 1.5s infinite;
+}
+
+/* Pick Zone */
+.pick-zone {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pick-slot {
+    height: 64px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.pick-slot .hero-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.pick-slot.filled .hero-bg {
+    opacity: 0.7;
+}
+
+.pick-slot .hero-info {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.pick-slot .hero-name {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+.pick-slot .role-badge {
+    font-size: 9px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.blue-side .pick-slot.active {
+    border-color: var(--blue-main);
+    box-shadow: 0 0 10px var(--blue-glow);
+    animation: pulse-border-blue 1.5s infinite;
+}
+
+.red-side .pick-slot.active {
+    border-color: var(--red-main);
+    box-shadow: 0 0 10px var(--red-glow);
+    animation: pulse-border-red 1.5s infinite;
+}
+
+/* Center Panel (Hero Pool Selector) */
+.pool-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pool-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    padding: 10px 16px 10px 36px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-wrapper::before {
+    content: "🔍";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+/* Role Filters */
+.role-filters {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.filter-btn.active {
+    background: var(--gold-glow);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* Hero Grid Pool */
+.hero-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 520px;
+    padding-right: 4px;
+}
+
+.hero-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.hero-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.hero-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    height: 110px; /* Tinggi eksplisit untuk mencegah keruntuhan baris grid */
+}
+
+.hero-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-card .hero-card-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(4, 8, 18, 0.85);
+    color: var(--text-primary);
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    padding: 4px 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-card:hover:not(.disabled) {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+}
+
+.hero-card.disabled {
+    opacity: 0.25;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.hero-card.disabled::after {
+    content: "✕";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Control Buttons */
+.control-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.control-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.control-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.control-btn.btn-reset {
+    color: var(--red-main);
+    border-color: rgba(255, 61, 113, 0.2);
+}
+
+.control-btn.btn-reset:hover {
+    background: rgba(255, 61, 113, 0.1);
+}
+
+.control-btn.btn-start {
+    color: var(--blue-main);
+    border-color: rgba(0, 229, 255, 0.2);
+}
+
+.control-btn.btn-start:hover {
+    background: rgba(0, 229, 255, 0.1);
+}
+
+/* Keyframes */
+@keyframes pulse-border-blue {
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); border-color: rgba(0, 229, 255, 0.6); }
+    50% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.7); border-color: rgba(0, 229, 255, 1); }
+}
+
+@keyframes pulse-border-red {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 61, 113, 0.3); border-color: rgba(255, 61, 113, 0.6); }
+    50% { box-shadow: 0 0 20px rgba(255, 61, 113, 0.7); border-color: rgba(255, 61, 113, 1); }
+}
+
+@keyframes pulse-border-gold {
+    0%, 100% { box-shadow: 0 0 10px rgba(201, 168, 76, 0.3); border-color: rgba(201, 168, 76, 0.6); }
+    50% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.7); border-color: rgba(201, 168, 76, 1); }
+}
+
+@keyframes active-pulse-bg-blue {
+    0%, 100% { background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, rgba(10, 20, 38, 0.92) 100%); }
+    50% { background: radial-gradient(circle, rgba(0, 229, 255, 0.25) 0%, rgba(10, 20, 38, 0.85) 100%); }
+}
+
+@keyframes active-pulse-bg-red {
+    0%, 100% { background: radial-gradient(circle, rgba(255, 61, 113, 0.12) 0%, rgba(10, 20, 38, 0.92) 100%); }
+    50% { background: radial-gradient(circle, rgba(255, 61, 113, 0.25) 0%, rgba(10, 20, 38, 0.85) 100%); }
+}
+
